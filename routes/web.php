@@ -15,8 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [PublicController::class, 'index']);
-Route::prefix('/admin')->group(function () {
+Route::prefix('/admin')->middleware('auth')->group(function () {
+    Route::get('/', function () {
+        return view('admin.index');
+    });
 });
 Route::get('/login', function () {
     return view('login');
-});
+})->name('login');
